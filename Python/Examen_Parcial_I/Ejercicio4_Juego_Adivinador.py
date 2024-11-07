@@ -14,7 +14,7 @@ contador = 5
 while contador != 0:
     print("Ingresa un número entre 1 - 100:")
     numero = int(input())
-    print(opcion_elegida_CPU)
+    
     print()
 
     if numero != opcion_elegida_CPU and opcion_elegida_CPU > numero:
