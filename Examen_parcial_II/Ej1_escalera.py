@@ -28,7 +28,7 @@ def crear_escalera(numero_ingresado):  # Cuando es un número positivo
         for i in range(numero_ingresado, 0):
             print(f"{espacios * (i * -1)}{escalon_ascendente}")
 
-
+# ///////////////////////////////////////////////////////////////////////////////////////// Código a nivel de módulo.
 
 espacios = "  "
 escalon_ascendente = "_| "
