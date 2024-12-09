@@ -1,7 +1,7 @@
 # Gracida Tapia Bryan.
-# 06 de Diciembre del 2024.
+# 08 de Diciembre del 2024.
 # Descripción:
-# Creación del juego PIEDRA, PAPEL, TIJERAS, LAGARTO, SPOCK, de la serie de The Big Bang Theory, utilizando diccionarios.
+# Este programa imprime una escalera ascendente o desendente, dependiendo si el numero es positivo o negativo.
 import random
 
 

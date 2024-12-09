@@ -1,7 +1,7 @@
 # Gracida Tapia Bryan.
-# 06 de Diciembre del 2024.
+# 08 de Diciembre del 2024.
 # Descripción:
-# Este programa determina la casa (Gryffindor, Slytherin, Hufflepuff y Ravenclaw) a la que perteneces, de acuerdo a tus respuestas..
+# Este programa determina la casa (Gryffindor, Slytherin, Hufflepuff y Ravenclaw) a la que se pertenece, de acuerdo a las respuestas ingresadas.
 import random
 
 
