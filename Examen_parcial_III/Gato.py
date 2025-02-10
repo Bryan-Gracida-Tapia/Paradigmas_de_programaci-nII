@@ -57,14 +57,18 @@ def verificar_victoria_gato(tablero, ficha) -> bool:
     :return: Regresa un valor booleano en caso de que gane la ultima ficha en colocarse.
     """
 
-    for i in range(3):      # ................................ Verificar filas y columnas.
-        if all(tablero[i][j] == ficha for j in range(3)) or all(tablero[j][i] == ficha for j in range(3)):
+    for fila in tablero:  # Verificando en todas las filas
+        if all(casilla == ficha for casilla in
+               fila):  # all: devuelve True si todos los elementos de un iterable son verdaderos; de lo contrario, devuelve False
             return True
 
-    # ................................ Verificar diagonales.
-    if all(tablero[i][i] == ficha for i in range(3)) or all(tablero[i][2 - i] == ficha for i in range(3)):
-        return True
+    for columna in range(3):  # Verificando en todas las columnas
+        if all(tablero[fila][columna] == ficha for fila in range(3)):
+            return True
 
+    if all(tablero[i][i] == ficha for i in range(3)) or all(
+            tablero[i][2 - i] == ficha for i in range(3)):  # Verificando en todas las casillas
+        return True
     return False
 
 # ///////////////////////////////////////////////////////////////////////////////////////// Funcion jugador vs jugador.
