@@ -52,8 +52,8 @@ def colocar_ficha(tablero, fila, columna, ficha) -> bool:
 # ///////////////////////////////////////////////////////////////////////////////////////// funcion batalla naval.
 def colocar_barcos(tablero,barcos,turno) -> None:
     """
-    Modo de juego: Jugador contra Jugador.
-    :return:
+    Se colocan barcos en un tablero, dependiendo del turno..
+    :param tablero: tablero que guardara la ubicación de los barcos
     """
     contador = 0
     ficha = "🚤"
@@ -75,16 +75,18 @@ def colocar_barcos(tablero,barcos,turno) -> None:
 # ///////////////////////////////////////////////////////////////////////////////////////// Colocar bombas.
 def colocar_bombas(tablero_tiros,turno) -> None:
     """
-    Modo de juego: Jugador contra Jugador.
-    :return:
+    se colocan bombas en un tablero, dependiendo del turno.
+    :param tablero_tiros: tablero con el registro de los tiros ya hechos
+    :param turno: turno sea jugador 1 o 2 o CPU
     """
+
     contador = 0
     ficha = "☄️"
     while contador < 1:
         limpiar()
         contador += 1
         mostrar_tablero(tablero_tiros)
-        print(f"Truno de jugador {turno}")
+        print(f"Turno de jugador {turno}")
         while True:
             entrada = input("Elige fila y columna (formato: fila columna): ").split()
             if len(entrada) == 2 and all(x.isdigit() for x in entrada):
@@ -112,11 +114,12 @@ def verificar_impactos(tablero_barcos,tablero_tiros) -> bool:
                 return True
     return False
 
-def alternar_tiros(tablero_jugador1,tablero_jugador2,barcos):
+def alternar_tiros(tablero_jugador1,tablero_jugador2,barcos) -> None:
     """
     Compara los tableros de barcos y tiros para verificar si las bombas acertaron.
-    :param tablero_barcos: Tablero con la ubicación de los barcos.
-    :param tablero_tiros: Tablero con las ubicaciones de los tiros.
+    :param tablero_jugador1: Tablero con la ubicación de los barcos del primer jugador.
+    :param tablero_jugador2: Tablero con las ubicaciones de los barcos del segundo jugador.
+    :param barcos: Cantidad de barcos segun el modo de juego.
     """
     tablero_tiros_jugador1 = crear_tablero()
     tablero_tiros_jugador2 = crear_tablero()
@@ -124,18 +127,18 @@ def alternar_tiros(tablero_jugador1,tablero_jugador2,barcos):
     barcos_vivos_jugador1 = barcos
     barcos_vivos_jugador2 = barcos
     while barcos_vivos_jugador1 != 0 or barcos_vivos_jugador2 != 0:
-        if turno %2 == 1:
+        if turno % 2 == 1:
             turno += 1
-            colocar_bombas(tablero_tiros_jugador1,turno=1)
-            while  verificar_impactos(tablero_jugador2,tablero_tiros_jugador1) and barcos_vivos_jugador2 != 0:
+            colocar_bombas(tablero_tiros_jugador1, turno=1)
+            while verificar_impactos(tablero_jugador2, tablero_tiros_jugador1) and barcos_vivos_jugador2 != 0:
                 colocar_bombas(tablero_tiros_jugador1, turno=1)
-                barcos_vivos_jugador2 -=1
+                barcos_vivos_jugador2 -= 1
 
         else:
-            colocar_bombas(tablero_tiros_jugador2,turno=2)
-            while  verificar_impactos(tablero_jugador1,tablero_tiros_jugador2) and barcos_vivos_jugador1 != 0:
+            colocar_bombas(tablero_tiros_jugador2, turno=2)
+            while verificar_impactos(tablero_jugador1, tablero_tiros_jugador2) and barcos_vivos_jugador1 != 0:
                 colocar_bombas(tablero_tiros_jugador2, turno=2)
-                barcos_vivos_jugador1 -=1
+                barcos_vivos_jugador1 -= 1
 
         if barcos_vivos_jugador2 == 0:
             print("Gana el jugador 1")
