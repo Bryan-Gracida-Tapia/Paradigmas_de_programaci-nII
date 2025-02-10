@@ -50,18 +50,18 @@ def colocar_ficha(tablero, fila, columna, ficha) -> bool:
     return False
 
 # ///////////////////////////////////////////////////////////////////////////////////////// funcion batalla naval.
-def colocar_barcos(tablero) -> None:
+def colocar_barcos(tablero,barcos,turno) -> None:
     """
     Modo de juego: Jugador contra Jugador.
     :return:
     """
     contador = 0
     ficha = "🚤"
-    while contador < 3:
+    while contador < barcos:
         limpiar()
         contador += 1
         mostrar_tablero(tablero)
-        print("Coloca tus barcos")
+        print(f"Truno de jugador {turno} de colocar barcos")
         while True:
             entrada = input("Elige fila y columna (formato: fila columna): ").split()
             if len(entrada) == 2 and all(x.isdigit() for x in entrada):
@@ -73,18 +73,18 @@ def colocar_barcos(tablero) -> None:
                 print("Entrada inválida. Ingresa dos números separados por un espacio.")
 
 # ///////////////////////////////////////////////////////////////////////////////////////// Colocar bombas.
-def colocar_bombas(tablero_tiros) -> None:
+def colocar_bombas(tablero_tiros,turno) -> None:
     """
     Modo de juego: Jugador contra Jugador.
     :return:
     """
     contador = 0
     ficha = "☄️"
-    while contador < 3:
+    while contador < 1:
         limpiar()
         contador += 1
         mostrar_tablero(tablero_tiros)
-        print("Coloca tus bombas")
+        print(f"Truno de jugador {turno}")
         while True:
             entrada = input("Elige fila y columna (formato: fila columna): ").split()
             if len(entrada) == 2 and all(x.isdigit() for x in entrada):
@@ -96,7 +96,7 @@ def colocar_bombas(tablero_tiros) -> None:
                 print("Entrada inválida. Ingresa dos números separados por un espacio.")
 
 # ///////////////////////////////////////////////////////////////////////////////////////// Verificar impactos.
-def verificar_impactos(tablero_barcos, tablero_tiros):
+def verificar_impactos(tablero_barcos,tablero_tiros) -> bool:
     """
     Compara los tableros de barcos y tiros para verificar si las bombas acertaron.
     :param tablero_barcos: Tablero con la ubicación de los barcos.
@@ -106,31 +106,72 @@ def verificar_impactos(tablero_barcos, tablero_tiros):
         for columna in range(7):
             if tablero_barcos[fila][columna] == "🚤" and tablero_tiros[fila][columna] == "☄️":
                 tablero_barcos[fila][columna] = "💢"
+                tablero_tiros[fila][columna] = "💢"
 
                 print(f"Impacto en ({fila + 1}, {columna + 1})")
-    print("Tablero actualizado después de los impactos:")
-    mostrar_tablero(tablero_barcos)
+                return True
+    return False
+
+def alternar_tiros(tablero_jugador1,tablero_jugador2,barcos):
+    """
+    Compara los tableros de barcos y tiros para verificar si las bombas acertaron.
+    :param tablero_barcos: Tablero con la ubicación de los barcos.
+    :param tablero_tiros: Tablero con las ubicaciones de los tiros.
+    """
+    tablero_tiros_jugador1 = crear_tablero()
+    tablero_tiros_jugador2 = crear_tablero()
+    turno = 0
+    barcos_vivos_jugador1 = barcos
+    barcos_vivos_jugador2 = barcos
+    while barcos_vivos_jugador1 != 0 or barcos_vivos_jugador2 != 0:
+        if turno %2 == 1:
+            turno += 1
+            colocar_bombas(tablero_tiros_jugador1,turno=1)
+            while  verificar_impactos(tablero_jugador2,tablero_tiros_jugador1) and barcos_vivos_jugador2 != 0:
+                colocar_bombas(tablero_tiros_jugador1, turno=1)
+                barcos_vivos_jugador2 -=1
+
+        else:
+            colocar_bombas(tablero_tiros_jugador2,turno=2)
+            while  verificar_impactos(tablero_jugador1,tablero_tiros_jugador2) and barcos_vivos_jugador1 != 0:
+                colocar_bombas(tablero_tiros_jugador2, turno=2)
+                barcos_vivos_jugador1 -=1
+
+        if barcos_vivos_jugador2 == 0:
+            print("Gana el jugador 1")
+            break
+        if barcos_vivos_jugador1 == 0:
+            print("Gana el jugador 2")
+            break
 
 
 # ///////////////////////////////////////////////////////////////////////////////////////// Función main.
-def main() -> None:
+def ejecutar_batalla_naval() -> None:
     """
     Función donde se encuentra las llamadas a funciones principales..
     :return:
     """
     if __name__ == "__main__":
+        barcos =0
         opcion = Menus.menu_jugabilidad()
+        dificultad = Menus.menu_modo_juego()
+        if dificultad == 1:
+            barcos = 3
+        elif dificultad == 2:
+            barcos = 5
+        elif dificultad == 3:
+            barcos = 10
+
         if opcion == 1:
-            tablero = crear_tablero()
-            colocar_barcos(tablero)
-            tablero_tiros = crear_tablero()
-            colocar_bombas(tablero_tiros)
-            verificar_impactos(tablero, tablero_tiros)
+            tablero_jugador1 = crear_tablero()
+            colocar_barcos(tablero_jugador1,barcos,turno = 1)
+            tablero_jugador2 = crear_tablero()
+            colocar_barcos(tablero_jugador2,barcos,turno= 2)
+            alternar_tiros(tablero_jugador1,tablero_jugador2,barcos)
         elif opcion == 2:
             print("Modo Jugador vs CPU aún no implementado.")
         else:
             print(Fore.RED + "Saliendo del programa...")
 
 # ///////////////////////////////////////////////////////////////////////////////////////// Ejecutar código.
-main()
-
+ejecutar_batalla_naval()
