@@ -1,7 +1,7 @@
 # Gracida Tapia Bryan.
 # 25 de noviembre del 2024.
 # Descripción:
-# Calculadora basica.
+# juegos.
 import Menus
 import Promedios
 import Calculadora
