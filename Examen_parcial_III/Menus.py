@@ -38,6 +38,21 @@ def menu_jugabilidad():
         opcion = input(Fore.BLUE + "Selecciona una opción: ")
     return int(opcion)
 
+# ///////////////////////////////////////////////////////////////////////////////////////// Menu modo de juego.
+def menu_modo_juego():
+    """
+
+    :return: retorna un valor entero según haya elegido el usuario.
+    """
+    print(Fore.BLUE +"*** Modo de juego ***")
+    print(Fore.BLUE + "[1].- Dificil")
+    print(Fore.BLUE + "[2].- Medio")
+    print(Fore.BLUE + "[3].- Clasico")
+    opcion = input(Fore.BLUE +  "Selecciona una opción: ")
+    while not opcion.isnumeric() or int(opcion) not in range(1, 4):
+        print(Fore.BLUE + "Opción no válida. Intenta de nuevo")
+        opcion = input(Fore.BLUE + "Selecciona una opción: ")
+    return int(opcion)
 # ///////////////////////////////////////////////////////////////////////////////////////// Menu repetir.
 def menu_repetir():
     """
@@ -53,7 +68,7 @@ def menu_repetir():
         opcion = input(Fore.YELLOW + "Selecciona una opción: ")
     return int(opcion)
 
-# ///////////////////////////////////////////////////////////////////////////////////////// Menu Calculadora.
+# //////////////////////////////////////////////////////////////////////////////////////// Menu Calculadora.
 def menu_calculadora():
     """
 
