@@ -1,5 +1,5 @@
 # Gracida Tapia Bryan.
-# 26 de Enero del 2025.
+# 10 de febrero del 2025.
 # Descripción:
 # Juego de la gerra naval con dos modos de juego: Jugador contra Jugador y Jugador contra CPU.
 import random
