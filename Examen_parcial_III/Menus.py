@@ -11,11 +11,12 @@ def menu():
     """
     print(Fore.CYAN + "     *** Menú ***")
     print(Fore.CYAN + "[1].- Juego del Gato")
-    print(Fore.CYAN +"[2].- Juego del Ahorcado")
-    print(Fore.CYAN +"[3].- Juego del Cuatro en Raya")
-    print(Fore.CYAN +"[4].- Calculadora")
-    print(Fore.CYAN +"[5].- Promedios")
-    print(Fore.RED +"[6].- Salir")
+    print(Fore.CYAN + "[2].- Juego del Ahorcado")
+    print(Fore.CYAN + "[3].- Juego del Cuatro en Raya")
+    print(Fore.CYAN + "[4].- Batalla naval")
+    print(Fore.CYAN + "[5].- Calculadora")
+    print(Fore.CYAN + "[6].- Promedios")
+    print(Fore.RED + "[7].- Salir")
     opcion = input(Fore.WHITE + "Selecciona una opción: ")
     while not opcion.isnumeric() or int(opcion) not in range(1, 7):
         print(Fore.RED + "Opción no válida. Intenta de nuevo")
